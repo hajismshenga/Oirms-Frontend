@@ -1,62 +1,47 @@
-.extra-experiences-container {
-    max-width: 700px;
-    margin: auto;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-  }
-  
-  .extra-experiences-title {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .extra-experiences-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .form-input,
-  .form-textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  .form-textarea {
-    height: 100px;
-    resize: vertical;
-  }
-  
-  button {
-    background-color: #007bff; /* Primary color */
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
-  }
-  
-  button:hover {
-    background-color: #0056b3; /* Darker shade on hover */
-  }
-  
+.education-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.education-title {
+  color: #d49a6a;
+  text-align: center;
+}
+
+.education-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-input {
+  padding: 10px;
+  border: 1px solid #d49a6a;
+  border-radius: 4px;
+}
+
+.file-preview {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.file-preview-image {
+  max-width: 100px;
+  margin-right: 10px;
+}
+
+.delete-button,
+.save-button {
+  background-color: #d49a6a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}

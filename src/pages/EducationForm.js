@@ -1,440 +1,362 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './EducationForm.css'; // Import the CSS file
+import './Education.css';
 
-function EducationForm() {
-  const [selectedEducationLevel, setSelectedEducationLevel] = useState('');
-  const [selectedHigherEducationLevel, setSelectedHigherEducationLevel] = useState('');
-  const [educationData, setEducationData] = useState({
-    primaryRegion: '',
-    primaryDistrict: '',
-    primaryStartYear: '',
-    primaryEndYear: '',
-    primaryCertificate: null,
-    secondaryRegion: '',
-    secondaryDistrict: '',
-    secondaryStartYear: '',
-    secondaryEndYear: '',
-    form4Index: '',
-    form6School: '',
-    form6Index: '',
-    form6Certificate: null,
-    diplomaRegNo: '',
-    diplomaSchool: '',
-    diplomaStartYear: '',
-    diplomaEndYear: '',
-    diplomaRegNo: '',
-    diplomaCertificate: null,
-    degreeSchool: '',
-    degreeGraduationYear: '',
-    degreeRegNo: '',
-    degreeCertificate: null,
-    masterSchool: '',
-    masterGraduationYear: '',
-    masterRegNo: '',
-    masterCertificate: null,
-    phdSchool: '',
-    phdGraduationYear: '',
-    phdRegNo: '',
-    phdCertificate: null,
-    otherEducationLevel: '',
-    otherSchool: '',
-    otherGraduationYear: '',
-    otherRegNo: '',
-    otherCertificate: null,
+const Education = () => {
+  const [primaryDetails, setPrimaryDetails] = useState({
+    school: '',
+    district: '',
+    region: '',
+    startYear: '',
+    endYear: '',
   });
-  const [filePreviews, setFilePreviews] = useState({});
 
-  const navigate = useNavigate();
+  const [secondaryDetails, setSecondaryDetails] = useState({
+    school: '',
+    district: '',
+    region: '',
+    indexNumber: '',
+    startYear: '',
+    endYear: '',
+    certificate: null,
+  });
 
-  const handleFileChange = (e, key) => {
-    const file = e.target.files[0];
-    if (file) {
-      setEducationData((prevData) => ({
-        ...prevData,
-        [key]: file,
-      }));
-      const url = URL.createObjectURL(file);
-      setFilePreviews((prevPreviews) => ({
-        ...prevPreviews,
-        [key]: url,
-      }));
+  const [form6Details, setForm6Details] = useState({
+    school: '',
+    indexNumber: '',
+    startYear: '',
+    endYear: '',
+    certificate: null,
+  });
+
+  const [diplomaDetails, setDiplomaDetails] = useState({
+    registrationNumber: '',
+    school: '',
+    startYear: '',
+    endYear: '',
+    certificate: null,
+  });
+
+  const [degreeDetails, setDegreeDetails] = useState({
+    degree: '',
+    school: '',
+    startYear: '',
+    endYear: '',
+    certificate: null,
+  });
+
+  const [masterDetails, setMasterDetails] = useState({
+    degree: '',
+    school: '',
+    startYear: '',
+    endYear: '',
+    certificate: null,
+  });
+
+  const [phdDetails, setPhdDetails] = useState({
+    degree: '',
+    school: '',
+    startYear: '',
+    endYear: '',
+    certificate: null,
+  });
+
+  const [selectedEducationLevel, setSelectedEducationLevel] = useState({
+    diplomaOrForm6: '',
+    degreeOrMasterOrPhD: '',
+  });
+
+  const handleInputChange = (e, level) => {
+    const { name, value } = e.target;
+    switch (level) {
+      case 'Primary':
+        setPrimaryDetails({ ...primaryDetails, [name]: value });
+        break;
+      case 'Secondary':
+        setSecondaryDetails({ ...secondaryDetails, [name]: value });
+        break;
+      case 'Form 6':
+        setForm6Details({ ...form6Details, [name]: value });
+        break;
+      case 'Diploma':
+        setDiplomaDetails({ ...diplomaDetails, [name]: value });
+        break;
+      case 'Degree':
+        setDegreeDetails({ ...degreeDetails, [name]: value });
+        break;
+      case 'Master':
+        setMasterDetails({ ...masterDetails, [name]: value });
+        break;
+      case 'PhD':
+        setPhdDetails({ ...phdDetails, [name]: value });
+        break;
+      default:
+        break;
     }
   };
 
-  const handleFileDelete = (key) => {
-    setEducationData((prevData) => ({
-      ...prevData,
-      [key]: null,
-    }));
-    setFilePreviews((prevPreviews) => ({
-      ...prevPreviews,
-      [key]: '',
-    }));
+  const handleCertificateChange = (e, type) => {
+    const file = e.target.files[0];
+    if (type === 'Secondary') {
+      setSecondaryDetails({ ...secondaryDetails, certificate: file });
+    } else if (type === 'Form 6') {
+      setForm6Details({ ...form6Details, certificate: file });
+    } else if (type === 'Diploma') {
+      setDiplomaDetails({ ...diplomaDetails, certificate: file });
+    } else if (type === 'Degree') {
+      setDegreeDetails({ ...degreeDetails, certificate: file });
+    } else if (type === 'Master') {
+      setMasterDetails({ ...masterDetails, certificate: file });
+    } else if (type === 'PhD') {
+      setPhdDetails({ ...phdDetails, certificate: file });
+    }
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setEducationData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  const handleDeleteCertificate = (type) => {
+    if (type === 'Secondary') {
+      setSecondaryDetails({ ...secondaryDetails, certificate: null });
+    } else if (type === 'Form 6') {
+      setForm6Details({ ...form6Details, certificate: null });
+    } else if (type === 'Diploma') {
+      setDiplomaDetails({ ...diplomaDetails, certificate: null });
+    } else if (type === 'Degree') {
+      setDegreeDetails({ ...degreeDetails, certificate: null });
+    } else if (type === 'Master') {
+      setMasterDetails({ ...masterDetails, certificate: null });
+    } else if (type === 'PhD') {
+      setPhdDetails({ ...phdDetails, certificate: null });
+    }
   };
 
-  const handleEducationLevelChange = (e) => {
-    setSelectedEducationLevel(e.target.value);
+  const handleDiplomaOrForm6Change = (e) => {
+    setSelectedEducationLevel({ ...selectedEducationLevel, diplomaOrForm6: e.target.value });
   };
 
-  const handleHigherEducationLevelChange = (e) => {
-    setSelectedHigherEducationLevel(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add form submission logic, such as sending the data to an API or server
-    alert('Form submitted successfully!');
-    navigate('/academic');
+  const handleDegreeOrMasterOrPhDChange = (e) => {
+    setSelectedEducationLevel({ ...selectedEducationLevel, degreeOrMasterOrPhD: e.target.value });
   };
 
   const handleSave = () => {
-    // Add save logic, such as saving to local storage or temporary backend
-    alert('Information saved successfully!');
+    // Add your save logic here, e.g., API call or state management
+    alert('Data saved successfully!');
+  };
+
+  const handleNext = () => {
+    // Logic to proceed to the next page or component
+    alert('Proceeding to the next page...');
   };
 
   return (
-    <div className="education-container">
-      <h1 className="education-title">Education Form</h1>
-      <form onSubmit={handleSubmit} className="education-form">
+    <div>
+      <h2>Education Information</h2>
 
-        {/* Primary Level Education */}
-        <h2>Primary Level Education</h2>
-        <div className="form-group">
-          <label htmlFor="primaryRegion">Region of School:</label>
-          <input
-            type="text"
-            id="primaryRegion"
-            name="primaryRegion"
-            value={educationData.primaryRegion}
-            onChange={handleInputChange}
-            className="form-input"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="primaryDistrict">District of School:</label>
-          <input
-            type="text"
-            id="primaryDistrict"
-            name="primaryDistrict"
-            value={educationData.primaryDistrict}
-            onChange={handleInputChange}
-            className="form-input"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="primaryStartYear">Year of Starting:</label>
-          <input
-            type="number"
-            id="primaryStartYear"
-            name="primaryStartYear"
-            value={educationData.primaryStartYear}
-            onChange={handleInputChange}
-            className="form-input"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="primaryEndYear">Year of Ending:</label>
-          <input
-            type="number"
-            id="primaryEndYear"
-            name="primaryEndYear"
-            value={educationData.primaryEndYear}
-            onChange={handleInputChange}
-            className="form-input"
-          />
-        </div>
+      <h3>Primary Education</h3>
+      <label>School Name:</label>
+      <input type="text" name="school" onChange={(e) => handleInputChange(e, 'Primary')} required />
+      <label>District:</label>
+      <input type="text" name="district" onChange={(e) => handleInputChange(e, 'Primary')} required />
+      <label>Region:</label>
+      <input type="text" name="region" onChange={(e) => handleInputChange(e, 'Primary')} required />
+      <label>Start Year:</label>
+      <input type="number" name="startYear" onChange={(e) => handleInputChange(e, 'Primary')} required />
+      <label>End Year:</label>
+      <input type="number" name="endYear" onChange={(e) => handleInputChange(e, 'Primary')} required />
 
-        {/* Secondary Level Education (Form 4) */}
-        <h2>Secondary Level Education (Form 4)</h2>
-        <div className="form-group">
-          <label htmlFor="secondaryRegion">Region of School:</label>
-          <input
-            type="text"
-            id="secondaryRegion"
-            name="secondaryRegion"
-            value={educationData.secondaryRegion}
-            onChange={handleInputChange}
-            className="form-input"
+      <h3>Secondary Education</h3>
+      <label>School Name:</label>
+      <input type="text" name="school" onChange={(e) => handleInputChange(e, 'Secondary')} required />
+      <label>District:</label>
+      <input type="text" name="district" onChange={(e) => handleInputChange(e, 'Secondary')} required />
+      <label>Region:</label>
+      <input type="text" name="region" onChange={(e) => handleInputChange(e, 'Secondary')} required />
+      <label>Index Number:</label>
+      <input type="text" name="indexNumber" onChange={(e) => handleInputChange(e, 'Secondary')} required />
+      <label>Start Year:</label>
+      <input type="number" name="startYear" onChange={(e) => handleInputChange(e, 'Secondary')} required />
+      <label>End Year:</label>
+      <input type="number" name="endYear" onChange={(e) => handleInputChange(e, 'Secondary')} required />
+      
+      <label>Upload Certificate:</label>
+      <input type="file" accept="image/*" onChange={(e) => handleCertificateChange(e, 'Secondary')} />
+      {secondaryDetails.certificate && (
+        <div>
+          <h4>Uploaded Certificate:</h4>
+          <img 
+            src={URL.createObjectURL(secondaryDetails.certificate)} 
+            alt="Uploaded Certificate" 
+            style={{ width: '100px', height: '100px' }} 
           />
+          <button onClick={() => handleDeleteCertificate('Secondary')}>Delete Certificate</button>
         </div>
-        <div className="form-group">
-          <label htmlFor="secondaryDistrict">District of School:</label>
-          <input
-            type="text"
-            id="secondaryDistrict"
-            name="secondaryDistrict"
-            value={educationData.secondaryDistrict}
-            onChange={handleInputChange}
-            className="form-input"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="secondaryStartYear">Year of Starting:</label>
-          <input
-            type="number"
-            id="secondaryStartYear"
-            name="secondaryStartYear"
-            value={educationData.secondaryStartYear}
-            onChange={handleInputChange}
-            className="form-input"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="secondaryEndYear">Year of Ending:</label>
-          <input
-            type="number"
-            id="secondaryEndYear"
-            name="secondaryEndYear"
-            value={educationData.secondaryEndYear}
-            onChange={handleInputChange}
-            className="form-input"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="form4Index">Form 4 Index Number:</label>
-          <input
-            type="text"
-            id="form4Index"
-            name="form4Index"
-            value={educationData.form4Index}
-            onChange={handleInputChange}
-            className="form-input"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="form4">Upload Form 4 Certificate:</label>
-          <input
-            type="file"
-            id="form4"
-            onChange={(e) => handleFileChange(e, 'primaryCertificate')}
-            className="form-input"
-          />
-          {filePreviews.primaryCertificate && (
-            <div className="file-preview">
-              <img src={filePreviews.primaryCertificate} alt="File Preview" className="file-preview-image" />
-              <button type="button" onClick={() => handleFileDelete('primaryCertificate')} className="delete-button">
-                Delete
-              </button>
+      )}
+
+      <h3>Form 6 / Diploma</h3>
+      <label>Select Education Level:</label>
+      <select onChange={handleDiplomaOrForm6Change} value={selectedEducationLevel.diplomaOrForm6}>
+        <option value="">Select</option>
+        <option value="Form 6">Form 6</option>
+        <option value="Diploma">Diploma</option>
+      </select>
+
+      {selectedEducationLevel.diplomaOrForm6 === 'Form 6' && (
+        <>
+          <h4>Form 6 Details</h4>
+          <label>School Name:</label>
+          <input type="text" name="school" onChange={(e) => handleInputChange(e, 'Form 6')} required />
+          <label>Index Number:</label>
+          <input type="text" name="indexNumber" onChange={(e) => handleInputChange(e, 'Form 6')} required />
+          <label>Start Year:</label>
+          <input type="number" name="startYear" onChange={(e) => handleInputChange(e, 'Form 6')} required />
+          <label>End Year:</label>
+          <input type="number" name="endYear" onChange={(e) => handleInputChange(e, 'Form 6')} required />
+
+          <label>Upload Certificate:</label>
+          <input type="file" accept="image/*" onChange={(e) => handleCertificateChange(e, 'Form 6')} />
+          {form6Details.certificate && (
+            <div>
+              <h4>Uploaded Certificate:</h4>
+              <img 
+                src={URL.createObjectURL(form6Details.certificate)} 
+                alt="Uploaded Certificate" 
+                style={{ width: '100px', height: '100px' }} 
+              />
+              <button onClick={() => handleDeleteCertificate('Form 6')}>Delete Certificate</button>
             </div>
           )}
-        </div>
+        </>
+      )}
 
-        {/* Select Education Level */}
-        <h2>Select Education Level</h2>
-        <div className="form-group">
-          <label htmlFor="educationLevel">Choose Education Level:</label>
-          <select
-            id="educationLevel"
-            name="educationLevel"
-            value={selectedEducationLevel}
-            onChange={handleEducationLevelChange}
-            className="form-input"
-          >
-            <option value="">Select</option>
-            <option value="form6">Form 6</option>
-            <option value="diploma">Diploma</option>
-          </select>
-        </div>
+      {selectedEducationLevel.diplomaOrForm6 === 'Diploma' && (
+        <>
+          <h4>Diploma Details</h4>
+          <label>Registration Number:</label>
+          <input type="text" name="registrationNumber" onChange={(e) => handleInputChange(e, 'Diploma')} required />
+          <label>School Name:</label>
+          <input type="text" name="school" onChange={(e) => handleInputChange(e, 'Diploma')} required />
+          <label>Start Year:</label>
+          <input type="number" name="startYear" onChange={(e) => handleInputChange(e, 'Diploma')} required />
+          <label>End Year:</label>
+          <input type="number" name="endYear" onChange={(e) => handleInputChange(e, 'Diploma')} required />
 
-        {selectedEducationLevel === 'form6' && (
-          <>
-            <h2>Advanced Level Education (Form 6)</h2>
-            <div className="form-group">
-              <label htmlFor="form6School">School of Form 6:</label>
-              <input
-                type="text"
-                id="form6School"
-                name="form6School"
-                value={educationData.form6School}
-                onChange={handleInputChange}
-                className="form-input"
+          <label>Upload Certificate:</label>
+          <input type="file" accept="image/*" onChange={(e) => handleCertificateChange(e, 'Diploma')} />
+          {diplomaDetails.certificate && (
+            <div>
+              <h4>Uploaded Certificate:</h4>
+              <img 
+                src={URL.createObjectURL(diplomaDetails.certificate)} 
+                alt="Uploaded Certificate" 
+                style={{ width: '100px', height: '100px' }} 
               />
+              <button onClick={() => handleDeleteCertificate('Diploma')}>Delete Certificate</button>
             </div>
-            <div className="form-group">
-              <label htmlFor="form6Index">Form 6 Index Number:</label>
-              <input
-                type="text"
-                id="form6Index"
-                name="form6Index"
-                value={educationData.form6Index}
-                onChange={handleInputChange}
-                className="form-input"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="form6">Upload Form 6 Certificate:</label>
-              <input
-                type="file"
-                id="form6"
-                onChange={(e) => handleFileChange(e, 'form6Certificate')}
-                className="form-input"
-              />
-              {filePreviews.form6Certificate && (
-                <div className="file-preview">
-                  <img src={filePreviews.form6Certificate} alt="File Preview" className="file-preview-image" />
-                  <button type="button" onClick={() => handleFileDelete('form6Certificate')} className="delete-button">
-                    Delete
-                  </button>
-                </div>
-              )}
-            </div>
-          </>
-        )}
+          )}
+        </>
+      )}
 
-        {selectedEducationLevel === 'diploma' && (
-          <>
-            <h2>Diploma Level Education</h2>
-            <div className="form-group">
-              <label htmlFor="diplomaSchool">School of Diploma:</label>
-              <input
-                type="text"
-                id="diplomaSchool"
-                name="diplomaSchool"
-                value={educationData.diplomaSchool}
-                onChange={handleInputChange}
-                className="form-input"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="diplomaStartYear">Starting Year:</label>
-              <input
-                type="number"
-                id="diplomaStartYear"
-                name="diplomaStartYear"
-                value={educationData.diplomaStartYear}
-                onChange={handleInputChange}
-                className="form-input"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="diplomaEndYear">Ending Year:</label>
-              <input
-                type="number"
-                id="diplomaEndYear"
-                name="diplomaEndYear"
-                value={educationData.diplomaEndYear}
-                onChange={handleInputChange}
-                className="form-input"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="diplomaRegNo">Diploma Registration Number:</label>
-              <input
-                type="text"
-                id="diplomaRegNo"
-                name="diplomaRegNo"
-                value={educationData.diplomaRegNo}
-                onChange={handleInputChange}
-                className="form-input"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="diploma">Upload Diploma Certificate:</label>
-              <input
-                type="file"
-                id="diploma"
-                onChange={(e) => handleFileChange(e, 'diplomaCertificate')}
-                className="form-input"
-              />
-              {filePreviews.diplomaCertificate && (
-                <div className="file-preview">
-                  <img src={filePreviews.diplomaCertificate} alt="File Preview" className="file-preview-image" />
-                  <button type="button" onClick={() => handleFileDelete('diplomaCertificate')} className="delete-button">
-                    Delete
-                  </button>
-                </div>
-              )}
-            </div>
-          </>
-        )}
+      <h3>Higher Education</h3>
+      <label>Select Degree Level:</label>
+      <select onChange={handleDegreeOrMasterOrPhDChange} value={selectedEducationLevel.degreeOrMasterOrPhD}>
+        <option value="">Select</option>
+        <option value="Degree">Degree</option>
+        <option value="Master">Master</option>
+        <option value="PhD">PhD</option>
+      </select>
 
-        {/* Higher Education Section */}
-        <h2>Higher Education</h2>
-        <div className="form-group">
-          <label htmlFor="higherEducationLevel">Choose Higher Education Level:</label>
-          <select
-            id="higherEducationLevel"
-            name="higherEducationLevel"
-            value={selectedHigherEducationLevel}
-            onChange={handleHigherEducationLevelChange}
-            className="form-input"
-          >
-            <option value="">Select</option>
-            <option value="degree">Degree</option>
-            <option value="masters">Master's</option>
-            <option value="phd">PhD</option>
-          </select>
-        </div>
+      {selectedEducationLevel.degreeOrMasterOrPhD === 'Degree' && (
+        <>
+          <h4>Degree Details</h4>
+          <label>Degree:</label>
+          <input type="text" name="degree" onChange={(e) => handleInputChange(e, 'Degree')} required />
+          <label>School Name:</label>
+          <input type="text" name="school" onChange={(e) => handleInputChange(e, 'Degree')} required />
+          <label>Start Year:</label>
+          <input type="number" name="startYear" onChange={(e) => handleInputChange(e, 'Degree')} required />
+          <label>End Year:</label>
+          <input type="number" name="endYear" onChange={(e) => handleInputChange(e, 'Degree')} required />
 
-        {selectedHigherEducationLevel === 'degree' && (
-          <>
-            <h2>Degree Level</h2>
-            <div className="form-group">
-              <label htmlFor="degreeSchool">School of Degree:</label>
-              <input
-                type="text"
-                id="degreeSchool"
-                name="degreeSchool"
-                value={educationData.degreeSchool}
-                onChange={handleInputChange}
-                className="form-input"
+          <label>Upload Certificate:</label>
+          <input type="file" accept="image/*" onChange={(e) => handleCertificateChange(e, 'Degree')} />
+          {degreeDetails.certificate && (
+            <div>
+              <h4>Uploaded Certificate:</h4>
+              <img 
+                src={URL.createObjectURL(degreeDetails.certificate)} 
+                alt="Uploaded Certificate" 
+                style={{ width: '100px', height: '100px' }} 
               />
+              <button onClick={() => handleDeleteCertificate('Degree')}>Delete Certificate</button>
             </div>
-            <div className="form-group">
-              <label htmlFor="degreeRegNo">Degree Registration Number:</label>
-              <input
-                type="text"
-                id="degreeRegNo"
-                name="degreeRegNo"
-                value={educationData.degreeRegNo}
-                onChange={handleInputChange}
-                className="form-input"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="degree">Upload Degree Certificate:</label>
-              <input
-                type="file"
-                id="degree"
-                onChange={(e) => handleFileChange(e, 'degreeCertificate')}
-                className="form-input"
-              />
-              {filePreviews.degreeCertificate && (
-                <div className="file-preview">
-                  <img src={filePreviews.degreeCertificate} alt="File Preview" className="file-preview-image" />
-                  <button type="button" onClick={() => handleFileDelete('degreeCertificate')} className="delete-button">
-                    Delete
-                  </button>
-                </div>
-              )}
-            </div>
-          </>
-        )}
+          )}
+        </>
+      )}
 
-        {/* Buttons */}
-        <div className="button-group">
-          <button type="button" onClick={handleSave} className="save-button">
-            Save
-          </button>
-          <button type="submit" className="submit-button">
-            Next
-          </button>
-          <button type="button" className="update-button">
-            Update
-          </button>
-        </div>
-      </form>
+      {selectedEducationLevel.degreeOrMasterOrPhD === 'Master' && (
+        <>
+          <h4>Master Details</h4>
+          <label>Degree:</label>
+          <input type="text" name="degree" onChange={(e) => handleInputChange(e, 'Master')} required />
+          <label>School Name:</label>
+          <input type="text" name="school" onChange={(e) => handleInputChange(e, 'Master')} required />
+          <label>Start Year:</label>
+          <input type="number" name="startYear" onChange={(e) => handleInputChange(e, 'Master')} required />
+          <label>End Year:</label>
+          <input type="number" name="endYear" onChange={(e) => handleInputChange(e, 'Master')} required />
+
+          <label>Upload Certificate:</label>
+          <input type="file" accept="image/*" onChange={(e) => handleCertificateChange(e, 'Master')} />
+          {masterDetails.certificate && (
+            <div>
+              <h4>Uploaded Certificate:</h4>
+              <img 
+                src={URL.createObjectURL(masterDetails.certificate)} 
+                alt="Uploaded Certificate" 
+                style={{ width: '100px', height: '100px' }} 
+              />
+              <button onClick={() => handleDeleteCertificate('Master')}>Delete Certificate</button>
+            </div>
+          )}
+        </>
+      )}
+
+      {selectedEducationLevel.degreeOrMasterOrPhD === 'PhD' && (
+        <>
+          <h4>PhD Details</h4>
+          <label>Degree:</label>
+          <input type="text" name="degree" onChange={(e) => handleInputChange(e, 'PhD')} required />
+          <label>School Name:</label>
+          <input type="text" name="school" onChange={(e) => handleInputChange(e, 'PhD')} required />
+          <label>Start Year:</label>
+          <input type="number" name="startYear" onChange={(e) => handleInputChange(e, 'PhD')} required />
+          <label>End Year:</label>
+          <input type="number" name="endYear" onChange={(e) => handleInputChange(e, 'PhD')} required />
+
+          <label>Upload Certificate:</label>
+          <input type="file" accept="image/*" onChange={(e) => handleCertificateChange(e, 'PhD')} />
+          {phdDetails.certificate && (
+            <div>
+              <h4>Uploaded Certificate:</h4>
+              <img 
+                src={URL.createObjectURL(phdDetails.certificate)} 
+                alt="Uploaded Certificate" 
+                style={{ width: '100px', height: '100px' }} 
+              />
+              <button onClick={() => handleDeleteCertificate('PhD')}>Delete Certificate</button>
+            </div>
+          )}
+        </>
+      )}
+
+      {/* Save and Next buttons */}
+      <div className="button-container">
+        <button className="button" onClick={handleSave}>
+          Save
+        </button>
+        <button className="button" onClick={handleNext}>
+          Next
+        </button>
+      </div>
     </div>
   );
-}
+};
 
-export default EducationForm;
+export default Education;

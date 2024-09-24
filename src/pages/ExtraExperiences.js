@@ -12,10 +12,18 @@ function ExtraExperiences() {
   });
   const navigate = useNavigate();
 
+  // Handle file change and preview
   const handleFileChange = (e) => {
-    setCertificates([...certificates, ...e.target.files]);
+    const newFiles = Array.from(e.target.files); // Convert FileList to Array
+    setCertificates((prevFiles) => [...prevFiles, ...newFiles]);
   };
 
+  // Delete a selected file
+  const handleDeleteFile = (index) => {
+    setCertificates((prevFiles) => prevFiles.filter((_, i) => i !== index));
+  };
+
+  // Handle input changes for the form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setExperienceData({
@@ -24,6 +32,7 @@ function ExtraExperiences() {
     });
   };
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     // Add file upload logic and form data submission here
@@ -71,18 +80,9 @@ function ExtraExperiences() {
             className="form-input"
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="date">Date:</label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            value={experienceData.date}
-            onChange={handleInputChange}
-            required
-            className="form-input"
-          />
-        </div>
+       
+
+        {/* File Upload */}
         <div className="form-group">
           <label htmlFor="certificates">Upload Certificates:</label>
           <input
@@ -90,11 +90,35 @@ function ExtraExperiences() {
             id="certificates"
             multiple
             onChange={handleFileChange}
-            required
             className="form-input"
+            required
           />
         </div>
-        <button type="submit">Next</button>
+
+        {/* Display uploaded files with delete button */}
+        <div className="uploaded-files">
+          <h3>Uploaded Certificates:</h3>
+          {certificates.length > 0 ? (
+            <div className="uploaded-files-grid">
+              {certificates.map((file, index) => (
+                <div key={index} className="uploaded-file-item">
+                  {file.type.startsWith('image/') ? (
+                    <img src={URL.createObjectURL(file)} alt={file.name} className="uploaded-file-image" />
+                  ) : (
+                    <p>{file.name}</p>
+                  )}
+                  <button type="button" onClick={() => handleDeleteFile(index)} className="delete-button">
+                    Delete
+                  </button>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>No files uploaded yet.</p>
+          )}
+        </div>
+
+        <button type="submit" className="next-button">Save And Confirm</button>
       </form>
     </div>
   );

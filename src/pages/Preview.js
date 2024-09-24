@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import './Preview.css'; // Make sure to create this CSS file for styling
 
 function Preview() {
   const navigate = useNavigate();
@@ -14,8 +15,26 @@ function Preview() {
     navigate('/'); // Redirect to Dashboard or another page
   };
 
+  const handleUpdate = () => {
+    // Logic for updating information (e.g., navigate to edit form)
+    alert('Redirecting to update form...');
+    navigate('/update'); // Replace with the actual update route
+  };
+
+  const handleDownload = () => {
+    // Logic for downloading the information
+    alert('Downloading your information...');
+    // Implement actual download logic (e.g., generate a PDF)
+  };
+
+  const handleDelete = () => {
+    // Logic for deleting the information
+    alert('Information deleted successfully!');
+    navigate('/'); // Redirect to another page after deletion
+  };
+
   return (
-    <div>
+    <div className="preview-container">
       <h1>Preview Your Information</h1>
 
       <section>
@@ -70,7 +89,12 @@ function Preview() {
         )}
       </section>
 
-      <button onClick={handleSubmit}>Submit</button>
+      <div className="button-container">
+        <button className="button" onClick={handleUpdate}>Update</button>
+        <button className="button" onClick={handleDownload}>Download</button>
+        <button className="button" onClick={handleDelete}>Delete</button>
+        <button className="button" onClick={handleSubmit}>Submit</button>
+      </div>
     </div>
   );
 }

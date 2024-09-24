@@ -1,64 +1,131 @@
 /* Academic.css */
 
-.academic-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: #f4f4f9;
-    border-radius: 10px;
-    max-width: 600px;
-    margin: 20px auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.academic-wrapper {
+  max-width: 650px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+}
+
+.academic-wrapper h1 {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 28px;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.academic-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 16px;
+  color: #34495e;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.form-group input {
+  padding: 12px;
+  border: 1px solid #dfe6e9;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #2d3436;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input::placeholder {
+  color: #b2bec3;
+}
+
+.form-group input:focus {
+  border-color: #d4af37;
+  outline: none;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+}
+
+.photo-preview {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f5f6fa;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ced6e0;
+  margin-top: 10px;
+}
+
+.passport-photo {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.delete-photo-btn {
+  padding: 6px 12px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.delete-photo-btn:hover {
+  background-color: #c0392b;
+}
+
+.save-btn {
+  padding: 12px;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.save-btn:hover {
+  background-color: #2ecc71;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .academic-wrapper {
+    padding: 15px;
   }
-  
-  h1 {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 20px;
+
+  .form-group input {
+    font-size: 14px;
   }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+
+  .save-btn {
+    font-size: 14px;
   }
-  
-  form div {
-    margin-bottom: 15px;
+
+  .passport-photo {
+    width: 80px;
+    height: 80px;
   }
-  
-  label {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-    display: block;
-    color: #555;
-  }
-  
-  input[type="file"] {
-    padding: 10px;
-    font-size: 1rem;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  button {
-    background-color: #ffcc00;
-    color: #fff;
-    font-size: 1.1rem;
-    font-weight: bold;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #e6b800;
-  }
-  
+}
