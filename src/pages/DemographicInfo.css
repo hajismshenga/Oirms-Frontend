@@ -1,0 +1,121 @@
+/* DemographicInfo.css */
+
+/* Main container styling */
+.demographic-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f4f4f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+/* Title styling */
+.demographic-title {
+  text-align: center;
+  color: #b8860b; /* Golden color for the title */
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Form styling */
+.demographic-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form group styling */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Label styling */
+.form-group label {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Input styling */
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Button styling */
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Common button styles */
+.save-button,
+.upload-button,
+.next-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Specific button colors */
+.save-button {
+  background-color: #6c757d;
+}
+
+.upload-button {
+  background-color: #28a745;
+}
+
+.next-button {
+  background-color: #b8860b; /* Golden color */
+}
+
+/* Hover effects for buttons */
+.save-button:hover {
+  background-color: #5a6268;
+}
+
+.upload-button:hover {
+  background-color: #218838;
+}
+
+.next-button:hover {
+  background-color: #a67500;
+}
+
+/* Preview section styling */
+.preview-section {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.preview-section p {
+  font-size: 14px;
+  color: #555;
+}
+
+.preview-image {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+/* Disabled button styling */
+button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+

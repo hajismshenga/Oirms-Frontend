@@ -1,0 +1,152 @@
+/* Container */
+.education-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 2px solid #d4af37; /* Golden border */
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Title */
+  .education-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #d4af37; /* Golden color */
+    margin-bottom: 30px;
+  }
+  
+  /* Form Styling */
+  .education-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Section Titles */
+  h2 {
+    color: #d4af37; /* Golden color */
+    font-size: 1.5rem;
+    margin-top: 20px;
+  }
+  
+  /* Form Groups */
+  .form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .form-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-input:focus {
+    border-color: #d4af37; /* Golden border on focus */
+    outline: none;
+  }
+  
+  /* File Preview Styling */
+  .file-preview {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .file-preview-image {
+    max-width: 100px;
+    max-height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  .delete-button {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .delete-button:hover {
+    background-color: #c0392b;
+  }
+  
+  /* Button Styling */
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .save-button {
+    background-color: #3498db;
+    color: #fff;
+  }
+  
+  .save-button:hover {
+    background-color: #2980b9;
+  }
+  
+  .submit-button {
+    background-color: #d4af37; /* Golden button */
+    color: #fff;
+  }
+  
+  .submit-button:hover {
+    background-color: #b7950b;
+  }
+  
+  .update-button {
+    background-color: #95a5a6;
+    color: #fff;
+  }
+  
+  .update-button:hover {
+    background-color: #7f8c8d;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .education-container {
+      padding: 15px;
+    }
+  
+    .button-group {
+      flex-direction: column;
+    }
+  
+    button {
+      margin-bottom: 10px;
+      width: 100%;
+    }
+  
+    .file-preview-image {
+      max-width: 80px;
+      max-height: 80px;
+    }
+  }
+  
