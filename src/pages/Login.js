@@ -1,6 +1,7 @@
+// Login.js
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './Login.css'; // Import the CSS file
+import './Login.css';
 
 function Login() {
   const navigate = useNavigate();

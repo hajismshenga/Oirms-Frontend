@@ -1,100 +1,138 @@
-import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import './Preview.css'; // Make sure to create this CSS file for styling
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import './Preview.css'; // Optional: Import CSS for styling
 
 function Preview() {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [profileData, setProfileData] = useState({});
+  const [demographicInfo, setDemographicInfo] = useState({});
+  const [primaryEducation, setPrimaryEducation] = useState([]);
+  const [secondaryEducation, setSecondaryEducation] = useState([]);
+  const [advancedEducation, setAdvancedEducation] = useState([]);
+  const [otherEducation, setOtherEducation] = useState([]);
+  const [workExperience, setWorkExperience] = useState([]);
 
-  // Extract state passed from previous pages
-  const { demographicInfo, educationData, extraExperiences } = location.state || {};
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetching profile data
+        const profileResponse = await axios.get('http://localhost:8080/profile/{id}'); // Replace {id} with actual user ID
+        setProfileData(profileResponse.data);
 
-  const handleSubmit = () => {
-    // Add any final submission logic here
-    alert('Information submitted successfully!');
-    navigate('/'); // Redirect to Dashboard or another page
-  };
+        // Fetching demographic info
+        const demographicResponse = await axios.get('http://localhost:8080/demographic/all');
+        setDemographicInfo(demographicResponse.data);
 
-  const handleUpdate = () => {
-    // Logic for updating information (e.g., navigate to edit form)
-    alert('Redirecting to update form...');
-    navigate('/update'); // Replace with the actual update route
-  };
+        // Fetching all education levels
+        const primaryResponse = await axios.get('http://localhost:8080/primary-education/all');
+        setPrimaryEducation(primaryResponse.data);
 
-  const handleDownload = () => {
-    // Logic for downloading the information
-    alert('Downloading your information...');
-    // Implement actual download logic (e.g., generate a PDF)
-  };
+        const secondaryResponse = await axios.get('http://localhost:8080/secondary-education/all');
+        setSecondaryEducation(secondaryResponse.data);
 
-  const handleDelete = () => {
-    // Logic for deleting the information
-    alert('Information deleted successfully!');
-    navigate('/'); // Redirect to another page after deletion
-  };
+        const advancedResponse = await axios.get('http://localhost:8080/advanced-education/all');
+        setAdvancedEducation(advancedResponse.data);
+
+        const otherResponse = await axios.get('http://localhost:8080/other-education/all');
+        setOtherEducation(otherResponse.data);
+
+        // Fetching work experience
+        const workResponse = await axios.get('http://localhost:8080/work-experience/all');
+        setWorkExperience(workResponse.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className="preview-container">
       <h1>Preview Your Information</h1>
-
-      <section>
-        <h2>Demographic Information</h2>
-        {demographicInfo ? (
-          <div>
-            <p><strong>Birth Certificate:</strong> {demographicInfo.birthCertificateName}</p>
-            {/* Display other demographic info here */}
+      
+      <h2>Profile Information</h2>
+      <div className="profile-info">
+        <p><strong>Last Name:</strong> {profileData.lastName}</p>
+        <p><strong>First Name:</strong> {profileData.firstName}</p>
+        <p><strong>Second Name:</strong> {profileData.secondName}</p>
+        <p><strong>Email:</strong> {profileData.email}</p>
+        <p><strong>Phone Number:</strong> {profileData.phoneNumber}</p>
+        <p><strong>Employment Number:</strong> {profileData.employmentNumber}</p>
+        <p><strong>Employment Status:</strong> {profileData.employmentStatus}</p>
+        <p><strong>Department:</strong> {profileData.department}</p>
+        {profileData.profilePicturePath && (
+          <div className="profile-picture">
+            <img src={profileData.profilePicturePath} alt="Profile" style={{ width: '100px', height: '100px', borderRadius: '50%' }} />
           </div>
-        ) : (
-          <p>No demographic information available.</p>
         )}
-      </section>
-
-      <section>
-        <h2>Education Information</h2>
-        {educationData ? (
-          <div>
-            <p><strong>Institution Name:</strong> {educationData.institutionName}</p>
-            <p><strong>Graduation Year:</strong> {educationData.graduationYear}</p>
-            <p><strong>Degree:</strong> {educationData.degree}</p>
-            <p><strong>School of Form 4:</strong> {educationData.schoolForm4}</p>
-            <p><strong>School of Form 6:</strong> {educationData.schoolForm6}</p>
-            {/* Display file names or links for uploaded files */}
-            <p><strong>Form 4 Certificate:</strong> {educationData.form4Name}</p>
-            <p><strong>Form 6 Certificate:</strong> {educationData.form6Name}</p>
-            <p><strong>University Certificate:</strong> {educationData.universityName}</p>
-          </div>
-        ) : (
-          <p>No education information available.</p>
-        )}
-      </section>
-
-      <section>
-        <h2>Extra Experiences</h2>
-        {extraExperiences ? (
-          <div>
-            <p><strong>Title:</strong> {extraExperiences.title}</p>
-            <p><strong>Description:</strong> {extraExperiences.description}</p>
-            <p><strong>Organization:</strong> {extraExperiences.organization}</p>
-            <p><strong>Date:</strong> {extraExperiences.date}</p>
-            {/* Display file names or links for uploaded certificates */}
-            <p><strong>Certificates:</strong></p>
-            <ul>
-              {extraExperiences.certificates.map((file, index) => (
-                <li key={index}>{file.name}</li>
-              ))}
-            </ul>
-          </div>
-        ) : (
-          <p>No extra experiences available.</p>
-        )}
-      </section>
-
-      <div className="button-container">
-        <button className="button" onClick={handleUpdate}>Update</button>
-        <button className="button" onClick={handleDownload}>Download</button>
-        <button className="button" onClick={handleDelete}>Delete</button>
-        <button className="button" onClick={handleSubmit}>Submit</button>
       </div>
+
+      <h2>Demographic Information</h2>
+      <div className="demographic-info">
+        <p><strong>Name:</strong> {demographicInfo.name}</p>
+        <p><strong>Date of Birth:</strong> {demographicInfo.dateOfBirth}</p>
+        <p><strong>Address:</strong> {demographicInfo.address}</p>
+        <p><strong>Nationality:</strong> {demographicInfo.nationality}</p>
+        <p><strong>Gender:</strong> {demographicInfo.gender}</p>
+        <p><strong>Phone Number:</strong> {demographicInfo.phoneNumber}</p>
+        <p><strong>Email:</strong> {demographicInfo.email}</p>
+      </div>
+
+      <h2>Education Levels</h2>
+
+      <h3>Primary Education</h3>
+      {primaryEducation.map((edu, index) => (
+        <div key={index}>
+          <p><strong>School Name:</strong> {edu.school}</p>
+          <p><strong>District:</strong> {edu.district}</p>
+          <p><strong>Region:</strong> {edu.region}</p>
+          <p><strong>Start Year:</strong> {edu.startYear}</p>
+          <p><strong>End Year:</strong> {edu.endYear}</p>
+        </div>
+      ))}
+
+      <h3>Secondary Education</h3>
+      {secondaryEducation.map((edu, index) => (
+        <div key={index}>
+          <p><strong>School Name:</strong> {edu.school}</p>
+          <p><strong>District:</strong> {edu.district}</p>
+          <p><strong>Region:</strong> {edu.region}</p>
+          <p><strong>Start Year:</strong> {edu.startYear}</p>
+          <p><strong>End Year:</strong> {edu.endYear}</p>
+        </div>
+      ))}
+
+      <h3>Advanced Education</h3>
+      {advancedEducation.map((edu, index) => (
+        <div key={index}>
+          <p><strong>Institution Name:</strong> {edu.institutionName}</p>
+          <p><strong>Course Type:</strong> {edu.courseType}</p>
+          <p><strong>Course Name:</strong> {edu.courseName}</p>
+          <p><strong>Start Year:</strong> {edu.startYear}</p>
+          <p><strong>End Year:</strong> {edu.endYear}</p>
+        </div>
+      ))}
+
+      <h3>Other Education</h3>
+      {otherEducation.map((edu, index) => (
+        <div key={index}>
+          <p><strong>Type of Education:</strong> {edu.typeOfEducation}</p>
+          <p><strong>Institution Name:</strong> {edu.institutionName}</p>
+          <p><strong>Registration Number:</strong> {edu.registrationNumber}</p>
+          <p><strong>Start Year:</strong> {edu.startYear}</p>
+          <p><strong>End Year:</strong> {edu.endYear}</p>
+        </div>
+      ))}
+
+      <h2>Work Experience</h2>
+      {workExperience.map((work, index) => (
+        <div key={index}>
+          <p><strong>Company Name:</strong> {work.companyName}</p>
+          <p><strong>Position:</strong> {work.position}</p>
+          <p><strong>Start Date:</strong> {work.startDate}</p>
+          <p><strong>End Date:</strong> {work.endDate}</p>
+        </div>
+      ))}
     </div>
   );
 }
